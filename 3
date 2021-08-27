@@ -1,0 +1,26 @@
+package main
+
+import (
+	"flag"
+	"fmt"
+	"io/ioutil"
+	"net/http"
+)
+
+func main() {
+	resp, err := http.Get("https://api.help.bj.cn/apis/weather/?id=101060101")
+
+	if err != nil {
+		fmt.Println("error")
+
+	}
+	bytes, err := ioutil.ReadAll(resp.Body)
+	b := string(bytes)
+	var s string
+	flag.StringVar(&s, "city", "", "天气预报")
+	flag.Parse()
+	if s == "长春" {
+		fmt.Println(b)
+	}
+
+}
